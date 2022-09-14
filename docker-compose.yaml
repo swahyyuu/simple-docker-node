@@ -9,7 +9,7 @@ services:
 
   node-project:
     build: .
-    image: node-project-image:1.0
+    image: conan736/simple-docker-node-app:1.0
     environment:
       - PORT=3000
     depends_on:
