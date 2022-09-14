@@ -3,6 +3,8 @@ services:
   nginx:
     ports:
       - "4005:80"
+    depends_on:
+      - node-project
 
   node-project:
     build:

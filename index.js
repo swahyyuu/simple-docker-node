@@ -59,8 +59,7 @@ app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/users", userRouter);
 
 app.get ("/api/v1", (req, res) => {
-  res.send("<h1>Hello from Node app using docker compose in production server</h1>");
-  console.log("Hello container load balancer")
+  res.send("<h1>Hello everyone, from Node app using docker compose in production server</h1>");
 });
 
 const port = process.env.PORT || 4000;
