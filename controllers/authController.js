@@ -60,3 +60,21 @@ exports.login = async (req, res) => {
     });
   }
 }
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json({
+      status: "Success",
+      result: (await users).length,
+      data: {
+        users
+      }
+    });
+  } catch (e) {
+    res.status(400).json({
+      status: "fail"
+    });
+  }
+}
