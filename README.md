@@ -69,11 +69,16 @@ After debug is done, you can follow the second step, and after all, everything w
 
 If you want to check whether it's work or not, you can open the postman and write this to get request :
 ```
-  http://ip.address:4005/api/v1
+  http://[ip_address]:4005/api/v1
 ```
 As you may see, this app directed the development environment into port 4005, you can check in *docker-compose.dev.yaml*.
 <br> 
 You can change the port as you desire, if you want to change it.
+
+---
+# Project Reference
+Full course and material explanation available on :
+- Thanks to this youtube tutorial [here](https://www.youtube.com/watch?v=9zUHg7xjIqQ&list=PLE0M9lpCZoq3T66-bRaopSmogQmid93hA&index=3).
 
 <!-- ---
 ## How to run the application in production environment
