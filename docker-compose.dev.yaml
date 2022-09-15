@@ -12,7 +12,7 @@ services:
       args: 
         NODE_ENV: development
     volumes:
-      - ./:/app
+      - ./:/app:ro
       - /app/node_modules
     environment:
       - NODE_ENV=development
