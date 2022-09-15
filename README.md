@@ -11,6 +11,36 @@ This is a simple CRUD application (Backend only) which wrapped out by using Dock
   - Docker Compose for production environment
 
 ---
+## CRUD Application
+
+| Method        | URL           | Description           |
+| ------------- |:-------------:| -----:                |
+| GET           | /api/v1       | Default web interface |
+| GET           | /api/v1/posts | Retrieve all posts    |
+| POST          | /api/v1/posts | Create a new post     |
+| GET           | /api/v1/posts/:id | Get a specific post |
+| PATCH         | /api/v1/posts/:id | Update a specific post |
+| DELETE        | /api/v1/posts/:id | Delete a specific post |
+| POST          | /api/v1/users/signup | Create a new user |
+| POST          | /api/v1/users/login | User login |
+
+
+<br> JSON format of posts
+``` JavaScript
+{
+  "title" : "title of the post",
+  "body"  : "body content of post"
+}
+```
+<br> JSON format of users
+``` JavaScript
+{
+  "username"  : "username of user",
+  "password"  : "password of user"
+}
+```
+
+---
 ## Prerequisites:
   - Docker installation on linux distro [[How to install docker on ubuntu](https://docs.docker.com/engine/install/ubuntu/)].
   <br> So, here I understand people problem who basically still know nothing about docker and then end up confused by reading the documentation, but wanted to see how is it working in the environment. Just follow these steps for quick installation :
@@ -26,7 +56,7 @@ This is a simple CRUD application (Backend only) which wrapped out by using Dock
   ```
   sudo apt install docker-compose
   ```
-  <br>or
+  or
   - Docker installation on windows [[How to install docker desktop on windows](https://docs.docker.com/desktop/install/windows-install/)]
   <br>Installing docker desktop on windows has already install docker compose package, so you don't need to worry about this.
 
@@ -34,7 +64,7 @@ This is a simple CRUD application (Backend only) which wrapped out by using Dock
 ## How to run the application in development environment
 After everything is done with the docker installation. Let's start to follow these steps :
 <br>
-1. Now we can clone this repository into our local repository first :
+1. Now, we can clone this repository into our local repository first :
 ```
 git clone https://github.com/swahyyuu/simple-docker-node.git .
 ```
@@ -75,13 +105,77 @@ As you may see, this app directed the development environment into port 4005, yo
 <br> 
 You can change the port as you desire, if you want to change it.
 
----
-# Project Reference
-Full course and material explanation available on :
-- Thanks to this youtube tutorial [here](https://www.youtube.com/watch?v=9zUHg7xjIqQ&list=PLE0M9lpCZoq3T66-bRaopSmogQmid93hA&index=3).
-
-<!-- ---
 ## How to run the application in production environment
 
-or you can just fork this repository into your github repository, since we need the authorization of the repository to make some changes to ensure our app running well, whenever there is a changes -->
+Now, we jump into how to deploy our application on production environment. Just following these steps :
+
+1. First of all we need a server, we can launch a quick setup server by using a cloud provider such as GCP, Azure, AWS, or DigitalOcean at this point, or you can just launch a virtual machine run on linux. It's your preference.
+
+2. After we launch a server, we should get connect into our server and prepare some environment variables. Ensure you are in the home directory, and follwo these steps : 
+``` 
+  nano .env
+```
+Now, copy of the following code to store environment variables inside our system.
+```
+NODE_ENV=production
+MONGO_USER=myusername
+MONGO_PASSWORD=mypassword
+SESSION_SECRET=secret
+MONGO_INITDB_ROOT_USERNAME=myusername
+MONGO_INITDB_ROOT_PASSWORD=mypassword
+```
+To save and exit nano, you press ```ctrl+x``` then ```Y``` and ```enter```.
+<br>
+
+3. Now, we need to append a line of code to extract our environment variables which in .env file. Follow these steps : 
+```
+  nano .profile
+```
+Now, add the following code into the file at the last line :
+```
+  set -o allexport; source [path_of_env_file]; set +o allexport
+```
+And then run this : 
+```
+  source .profile
+```
+So, now you need to re-enter the server, then run this command to check whether our variables have been stored or not.
+```
+  printenv
+```
+
+4. Now, we can clone this repository into our local repository first :
+```
+  git clone https://github.com/swahyyuu/simple-docker-node.git .
+```
+
+5. We can run our in a similar way within our development environment like this : 
+```
+  docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
+```
+
+6. Now, if you run command ```docker ps ```, you will see many of containers deployed at one time, please check out what happened on ```docker-compose.prod.yaml``` file.
+
+
+7. After you see, what's happening here, let's use Docker Swarm as our container orchestration by running this command :
+```
+  docker swarm init
+```
+
+8. When you installing docker at the beginning, it also installed the docker swarm along with it. And now run this command instead of like steps number 5.
+```
+  docker stack deploy -c docker-compose.yaml -c docker-compose.prod.yaml [service_name]
+```
+Wait a couple of minutes until all the services up.
+
+9. After that, you can check which services are already running, run this command : 
+```
+  docker stack ps [service_name]
+```
+Thank you for reading.
+
+---
+# Project Reference
+**Please for full of explanation about this project refer to this awesome tutorial on youtube.**
+- Thanks to this youtube tutorial [here](https://www.youtube.com/watch?v=9zUHg7xjIqQ&list=PLE0M9lpCZoq3T66-bRaopSmogQmid93hA&index=4).
 
