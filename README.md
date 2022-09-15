@@ -172,6 +172,12 @@ Wait a couple of minutes until all the services up.
 ```
   docker stack ps [service_name]
 ```
+If you want to check whether it's work or not, you can open the postman and write this to get request :
+```
+  http://[ip_address]/api/v1
+```
+As you may see, this app directed the production environment into port of http default which is 80.
+<br>
 Thank you for reading.
 
 ---
