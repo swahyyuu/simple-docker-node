@@ -135,6 +135,11 @@ Now, add the following code into the file at the last line :
 ```
   set -o allexport; source [path_of_env_file]; set +o allexport
 ```
+or just simply add this :
+```
+  echo "set -o allexport; source [path_of_env_file]; set +o allexport" >> .profile
+```
+
 And then run this : 
 ```
   source .profile
